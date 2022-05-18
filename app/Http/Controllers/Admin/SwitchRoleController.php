@@ -43,16 +43,17 @@ class SwitchRoleController extends Controller
         }else
         {
             $permission = Role::find($idRole)->permissions()->orderBy('name')->get();
-            // dd($permission->toArray());
             if($permission == null)
             {
                 return redirect()->back()->with('errorSwitchRole','permission not found');
             }else
             {
                 $arrPermisson = $permission->toArray();
-                $arrSessionPermissions = array_column($arrPermisson,'slug');
-                // dd($arrSessionPermissions);
-                $request->session()->put('permissionSessionUser',$arrSessionPermissions);
+                $arrSessionPermissions = array_column($arrPermisson,'id');
+                // bien mang ve chuyen
+                $strSessionPermissions = implode(",", $arrSessionPermissions);
+                // put : khong luu dc mang ma phai dung push
+                $request->session()->put('permissionSessionUser',$strSessionPermissions);
                 $request->session()->put('namePermissionSession',$roles->name);
                 return redirect()->route('admin.dashboard');
             }

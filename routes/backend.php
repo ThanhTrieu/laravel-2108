@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\SwitchRoleController;
+use App\Enums\Constants;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
     Route::get('login',[LoginController::class, 'index'])->name('login');
     Route::post('handle',[LoginController::class, 'handleLogin'])->name('handle.login');
     Route::post('logout',[LoginController::class, 'logout'])->name('logout');
+    Route::view('not-permission', 'admin.not-permission')->name('not.permission');
 });
 
 Route::prefix('admin')
@@ -52,7 +54,13 @@ Route::prefix('admin')
         Route::post('add-permission',[PermissionController::class, 'handleAdd'])->name('add.permission');
 
         // account
-        Route::get('account',[AccountController::class, 'index'])->name('account');
-        Route::get('add-account', [AccountController::class, 'addAccount'])->name('add.account');
-        Route::post('handle-add-account',[AccountController::class, 'handleAdd'])->name('handle.add.account');
+        Route::get('account',[AccountController::class, 'index'])
+                ->middleware('token.authenticate:'.Constants::VIEW_ALL_USER)
+                ->name('account');
+        Route::get('add-account', [AccountController::class, 'addAccount'])
+                ->middleware('token.authenticate:'.Constants::CREATED_USER)
+                ->name('add.account');
+        Route::post('handle-add-account',[AccountController::class, 'handleAdd'])
+                ->middleware('token.authenticate:'.Constants::CREATED_USER)
+                ->name('handle.add.account');
 });

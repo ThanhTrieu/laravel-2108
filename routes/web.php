@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+/*
 Route::get('/', function () {
     return view('welcome');
 });
@@ -87,3 +87,4 @@ Route::get('render-token', function(){
 Route::get('render-token-view', function(){
     return view('test');
 });
+*/

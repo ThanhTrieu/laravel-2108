@@ -1,7 +1,24 @@
 <?php
 
+use App\Enums\Constants;
+
+if(!function_exists('viewAllUser')){
+    function viewAllUser()
+    {
+        if(session('permissionSessionUser')){
+            $arrSessionPermission = explode(',', session('permissionSessionUser'));
+            if(in_array(Constants::VIEW_ALL_USER, $arrSessionPermission)){
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+}
+
 if(!function_exists('slugifyVietnam')){
-    function slugifyVietnam($title){
+    function slugifyVietnam($title)
+    {
         $replacement = '-';
         $map = array();
         $quotedReplacement = preg_quote($replacement, '/');

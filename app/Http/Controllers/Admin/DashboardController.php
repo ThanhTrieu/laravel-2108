@@ -10,8 +10,6 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         $sessionUser = $request->session()->get('sessionEmailUser');
-        // $sessionUser = $_SESSION['sessionEmailUser'] ?? '';
-
         $students = [
             [
                 'id' => 1,

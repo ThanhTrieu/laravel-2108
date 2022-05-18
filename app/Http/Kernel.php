@@ -68,5 +68,6 @@ class Kernel extends HttpKernel
         'test.login.user' => \App\Http\Middleware\TestUserLogin::class,
         'check.login.admin.page' => \App\Http\Middleware\CheckLoginAdminPage::class,
         'check.switch.role.admin'=>\App\Http\Middleware\CheckSwitchRoleAdmin::class,
+        'token.authenticate' => \App\Http\Middleware\TokenAuthenticate::class,
     ];
 }
